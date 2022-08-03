@@ -10,9 +10,9 @@ const Demo: React.FC = () => {
     }, [])
     const initMap = async () => {
         const options: Ioptions = {
-            url: 'https://js.arcgis.com/4.18/init.js',
-            css: 'https://js.arcgis.com/4.18/esri/themes/light/main.css',
-        }
+            url: 'https://js.arcgis.com/4.24/init.js',
+            css: 'https://js.arcgis.com/4.24/esri/themes/light/main.css',
+        } 
         const basemapVTURL = "https://api.hkmapservice.gov.hk/ags/map/basemap/HK80";
         const mapLabelVTUrl = "https://api.hkmapservice.gov.hk/ags/map/label-en/HK80";
         var apikey = "584b2fa686f14ba283874318b3b8d6b0";
