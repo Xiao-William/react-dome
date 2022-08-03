@@ -1,3 +1,3 @@
-import { Demo } from "../Demo1";
+import { Demo } from "../Demo/index"
 
 export { Demo }
