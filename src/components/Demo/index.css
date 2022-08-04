@@ -1,27 +1,64 @@
-html,
-body,
-#viewDiv {
-    padding: 0;
-    margin: 0;
-    height: 100%;
+#mapview {
     width: 100%;
+    height: 100%;
 }
 
-.landsdlogo {
-    width: 25px;
-    height: 25px;
-    display: inline-flex;
-    background: url(https://api.hkmapservice.gov.hk/mapapi/landsdlogo.jpg);
-    background-size: 25px;
-    margin-left: 4px;
+.main {
+    position: relative;
+    width: 50vw;
+    height: 40vh;
+
 }
 
-.esri-attribution {
-    width: auto !important;
-    left: auto !important;
-    background: none;
+#basemapToggle {
+    position: absolute;
+    right: 40px;
+    bottom: 20px;
 }
 
-.esri-attribution__powered-by {
-    display: none;
+#zoom {
+    position: absolute;
+    right: 40px;
+    bottom: 100px;
+}
+
+#searchWidget {
+    position: absolute;
+    right: 40px;
+    top: 100px;
+}
+
+#scaleBar {
+    position: absolute;
+    left: 40px;
+    bottom: 100px;
+}
+
+#BasemapToggle {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 50;
+}
+
+#HomeButton {
+    left: 25px;
+    position: absolute;
+    top: 93px;
+    z-index: 50;
+}
+
+#LocateButton {
+    left: 25px;
+    position: absolute;
+    top: 130px;
+    z-index: 50;
+}
+
+#search {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 25px;
+    left: 75px;
 }
