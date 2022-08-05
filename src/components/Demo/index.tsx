@@ -11,7 +11,8 @@ const DemoCompoents: React.FC<any> = (props) => {
         initMap()
     }, [])
     const initMap = async () => {
-        const [Map, MapView, Basemap, TileLayer, BasemapToggle, ScaleBar, Zoom, Search, Graphic, GraphicsLayer, Point, locator] = await loadModules(
+
+        const [Map, MapView, Basemap, TileLayer, BasemapToggle, ScaleBar, Zoom, Search, locator] = await loadModules(
             [
                 'esri/Map',
                 'esri/views/MapView',
@@ -20,15 +21,7 @@ const DemoCompoents: React.FC<any> = (props) => {
                 'esri/widgets/BasemapToggle',
                 'esri/widgets/ScaleBar',
                 'esri/widgets/Zoom',
-                'esri/widgets/Search',
-                "dojo/domReady!",
-                "esri/symbols/Font",
-                "esri/symbols/TextSymbol",
-                "esri/geometry/Point",
-                'esri/Graphic',
-                "esri/Color",
-                'esri/layers/GraphicsLayer',
-                "esri/geometry/Point",
+                "esri/widgets/Search",
                 'esri/rest/locator'
             ],
             config.options,
@@ -37,156 +30,68 @@ const DemoCompoents: React.FC<any> = (props) => {
         let basemap = new Basemap({
             baseLayers: [
                 new TileLayer({
-                    url: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetWarm/MapServer',
+                    url: 'http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
                     title: 'Basemap',
-                    id: 'layerid'
                 }),
             ],
             title: 'basemap',
             id: 'basemap',
         });
 
-        const map = new Map({ basemap, nav: true });
+        const map = new Map({
+            basemap,
+        });
 
         const mapView = new MapView({
             container: 'mapview',
-            map,
+            map: map,
             zoom: 10,
-            center: [114.189566, 22.296307],
+            center: [113.968223, 22.258314],
         });
+
+        //实例化底图切换控件
         const basemapToggle = new BasemapToggle({
+
             view: mapView,
             nextBasemap: 'hybrid',
             container: 'basemapToggle',
         });
 
-
-        const scaleBar = new ScaleBar({
-            view: mapView,
-            unit: 'metric',
-            container: 'scaleBar',
-        });
-        const zoom = new Zoom({
-            view: mapView,
-            container: 'zoom',
-        });
-        var searchWidget = new Search({
+        mapView.ui.add(basemapToggle);
+        const searchWidget = new Search({
             view: mapView,
             includeDefaultSources: false,
             locationEnabled: false,
             sources: [{
                 name: 'Address',
                 placeholder: 'Input Addresses',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/loc/address/en'
-                })
             }, {
-                name: 'Building',
-                placeholder: 'Building Name',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib1000/buildings/building/en'
-                })
-            }, {
-                name: 'Building Licence',
-                placeholder: 'e.g BL 1/11',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ic1000/buildinglicence'
-                })
-            }, {
-                name: 'Geo Community',
-                placeholder: 'Input community Name',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/loc/geocomm/en'
-                })
-            }, {
-                name: 'Place Point',
-                placeholder: 'e.g Tsim Sha Tsui',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib5000/poi/placepoint/en'
-                })
-            }, {
-                name: 'POI',
-                placeholder: 'e.g Tsim Sha Tsui',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib5000/poi/poipoint/en'
-                })
-            }, {
-                name: 'Site',
-                placeholder: 'e.g. TAIKOO, WONG TAI SIN TEMPLE',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib1000/buildings/site/en'
-                })
-            }, {
-                name: 'SubSite',
-                placeholder: 'e.g. Wong Tai Sin',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib1000/buildings/subsite/en'
-                })
-            }, {
-                name: 'Lot',
-                placeholder: 'e.g SSTL 112,IL 10',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ic1000/lot'
-                })
-            }, {
-                name: 'GLA',
-                placeholder: 'e.g gla-dn 110',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ic1000/gla'
-                })
-            }, {
-                name: 'VGS',
-                placeholder: 'e.g DLO/KW070',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ls/vacantgovsite'
-                })
-            }, {
-                name: 'Street Intersection',
-                placeholder: 'e.g. Nathan Road',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/loc/streetintersection/en'
-                })
-            }, {
-                name: 'Road',
-                placeholder: 'e.g. Nathan Road',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib1000/transportation/streetcentrelines/en'
-                })
-            }, {
-                name: 'Local Control',
-                placeholder: 'e.g. CM1/DN1819B',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/sc/localcontrol'
-                })
-            }, {
-                name: 'GeodeticHControl',
-                placeholder: 'e.g. 2001.001',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/sc/GeodeticHControl'
-                })
-            }, {
-                name: 'GeodeticVControl',
-                placeholder: 'e.g. 200001',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/sc/GeodeticVControl'
-                })
-            }, {
-                name: 'Utility Point',
-                placeholder: 'e.g. LPO-123,FWH-123,LPO-EBE/D/123 ',
-                locator: new locator({
-                    url: 'https://api.hkmapservice.gov.hk/ags/gc/ib1000/utilities/utilitypoint'
-                })
-            },],
-            container: 'searchWidget',
+                name: 'Address',
+                placeholder: 'Input Addresses',
+
+
+            }]
         });
-        // Add the search widget to the top right corner of the view
+        mapView.ui.add(searchWidget, {
+            position: "top-right"
+        });
+
+        //实例化比例尺
+        const scaleBar = new ScaleBar({
+            view: mapView,
+            unit: 'metric',
+            container: 'scaleBar',
+        });
+        mapView.ui.add(scaleBar);
+
+        //实例化缩放控件
+        const zoom = new Zoom({
+            view: mapView,
+            container: 'zoom',
+        });
+        mapView.ui.add(zoom);
 
         mapView.ui.components = [];
-
-        mapView.ui.add(searchWidget);
-        mapView.ui.add(zoom);
-        mapView.ui.add(scaleBar);
-        mapView.ui.add(basemapToggle);
         // function addPointGraphicsLayer(a: number) {
         //     //png符号
         //     let symbol1 = {
@@ -221,6 +126,7 @@ const DemoCompoents: React.FC<any> = (props) => {
         //                 "attributes": {
         //                     "Name": "",
         //                     "Address": ""
+
         //                 },
         //                 "symbol": symbol,
         //                 "infoTemplate": {  //点击该点显示的信息窗口内容
@@ -264,6 +170,7 @@ const DemoCompoents: React.FC<any> = (props) => {
         // function addPolygon() {
         //     //面图层的数据
         //     var polygon = [{
+
         //         geometry: {
         //             "rings": [[[-26852284.444415465, 3541766.7558766007], [-27380617.183922466, 2847107.0428211037],
         //             [-28280739.62900846, 2475317.3372421055], [-28642745.39496696, 2954730.3786466033],
