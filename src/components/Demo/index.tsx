@@ -2,18 +2,15 @@ import React, { useEffect, useRef } from 'react'
 import { loadModules } from 'esri-loader'
 import config from '../config'
 import './index.css'
+import { connect } from 'react-redux'
+import { IStoreState } from '@/store/type'
 
-const Demo: React.FC = () => {
-
+const DemoCompoents: React.FC<any> = (props) => {
     useEffect(() => {
+        console.log(props);
         initMap()
-
     }, [])
-
-
     const initMap = async () => {
-
-
         const [Map, MapView, Basemap, TileLayer, BasemapToggle, ScaleBar, Zoom, Search, Graphic, GraphicsLayer, Point, locator] = await loadModules(
             [
                 'esri/Map',
@@ -348,5 +345,6 @@ const Demo: React.FC = () => {
 
     )
 }
-
+const mapState: (state: IStoreState) => any = ({ user }) => ({ user })
+const Demo = connect(mapState)(DemoCompoents)
 export { Demo }
