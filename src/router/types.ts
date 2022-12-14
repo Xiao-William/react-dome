@@ -6,6 +6,7 @@ interface RouteObject {
   path: string;
   auth?: boolean;
   mete?: object;
+  mata?: string
 }
 
 export type { RouteObject };
