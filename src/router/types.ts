@@ -5,6 +5,7 @@ interface RouteObject {
   index?: boolean;
   path: string;
   auth?: boolean;
+  acth?:boolean;
   mete?: object;
   mata?: string
 }
